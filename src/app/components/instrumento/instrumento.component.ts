@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-instrumento',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./instrumento.component.scss'],
 })
 export class InstrumentoComponent implements OnInit {
+
+  @Input() public nomeDoInstrumento: string;
+  @Input() public caminhoDaImagem: string;
 
   constructor() { }
 

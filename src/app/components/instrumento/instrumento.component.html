@@ -1,6 +1,6 @@
 <ion-card>
     <ion-card-header>
-        <ion-card-title>Violino</ion-card-title>
+        <ion-card-title text-center>{{ nomeDoInstrumento }}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
@@ -12,7 +12,7 @@
                     </ion-button>
                 </ion-col>
                 <ion-col>
-                    <ion-img src="assets/images/violino.png"></ion-img>
+                    <ion-img [src]="caminhoDaImagem"></ion-img>
                 </ion-col>
                 <ion-col>
                     <ion-button (click)="somar()" color="success">
