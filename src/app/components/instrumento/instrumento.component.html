@@ -1,3 +1,32 @@
-<ion-lable>
-  instrumento!
-</ion-lable>
+<ion-card>
+    <ion-card-header>
+        <ion-card-title>Violino</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-button (click)="subtrair()" color="danger">
+                        <ion-icon name="remove"></ion-icon>
+                    </ion-button>
+                </ion-col>
+                <ion-col>
+                    <ion-img src="assets/images/violino.png"></ion-img>
+                </ion-col>
+                <ion-col>
+                    <ion-button (click)="somar()" color="success">
+                        <ion-icon name="add"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+            <ion-row text-center>
+                <ion-col>
+                    <ion-item text-center>
+                        <ion-label>{{ quantidade }}</ion-label>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-card-content>
+</ion-card>

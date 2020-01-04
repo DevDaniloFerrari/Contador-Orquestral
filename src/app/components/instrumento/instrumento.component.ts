@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-instrumento',
@@ -10,6 +9,20 @@ export class InstrumentoComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  quantidade: number;
+
+  ngOnInit() {
+    this.quantidade = 0;
+  }
+
+  somar() {
+    this.quantidade++;
+  }
+
+  subtrair() {
+    if (this.quantidade > 0) {
+      this.quantidade--;
+    }
+  }
 
 }
