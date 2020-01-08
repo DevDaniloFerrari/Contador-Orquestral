@@ -1,5 +1,7 @@
 {
   "name": "contador-orquestral",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

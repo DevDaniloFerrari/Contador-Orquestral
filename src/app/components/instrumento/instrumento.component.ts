@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-instrumento',
@@ -10,22 +11,44 @@ export class InstrumentoComponent implements OnInit {
   @Input() public nomeDoInstrumento: string;
   @Input() public caminhoDaImagem: string;
 
-  constructor() { }
+  constructor(
+    private storage: Storage
+    ) { }
 
   quantidade: number;
 
   ngOnInit() {
-    this.quantidade = 0;
+    this.obterQuantidade(this.nomeDoInstrumento);
   }
 
-  somar() {
+  public somar() {
     this.quantidade++;
+    this.salvar(this.nomeDoInstrumento, this.quantidade);
   }
 
-  subtrair() {
+  public subtrair() {
     if (this.quantidade > 0) {
       this.quantidade--;
+      this.salvar(this.nomeDoInstrumento, this.quantidade);
     }
+  }
+
+  public salvar(nomeDoInstrumento: string, quantidade: number) {
+    this.storage.set(nomeDoInstrumento, quantidade);
+  }
+
+  public obterQuantidade(nomeDoInstrumento: string) {
+    this.storage.get(nomeDoInstrumento).then(
+      (quantidadeResponse) => {
+
+        if (isNaN(quantidadeResponse)) {
+          this.salvar(nomeDoInstrumento, 0);
+          this.quantidade = 0;
+        }
+
+        this.quantidade = quantidadeResponse;
+      }
+    );
   }
 
 }
