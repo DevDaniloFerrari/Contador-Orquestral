@@ -7,6 +7,10 @@ const routes: Routes = [
     path: 'listagem',
     loadChildren: () => import('./pages/listagem/listagem.module').then( m => m.ListagemPageModule)
   },
+  {
+    path: 'relatorio',
+    loadChildren: () => import('./pages/relatorio/relatorio.module').then( m => m.RelatorioPageModule)
+  },
 ];
 
 @NgModule({
