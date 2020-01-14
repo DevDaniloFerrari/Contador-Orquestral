@@ -1,9 +1,210 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>relatorio</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="listagem" icon="arrow-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      Relatório
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ion-list-header color="medium">
+      <ion-label>
+        Cordas
+      </ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label> 
+        Violino
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Violino") }}
+      </ion-label> 
+    </ion-item>
+    <ion-item>
+      <ion-label> 
+        Viola
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Viola") }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label> 
+        Violoncelo
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Violoncelo") }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header color="medium">
+      <ion-label>
+        Madeiras
+      </ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label> 
+        Flauta Transversal
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Flauta Transversal") }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label> 
+        Oboé
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Oboé") }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label> 
+        Oboé D'Amore
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Oboé D'Amore") }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label> 
+        Corne Inglês
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Corne Inglês") }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label> 
+        Clarinete
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Clarinete") }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label> 
+        Clarinete Alto
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Clarinete Alto") }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label> 
+        Clarinete Baixo
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Clarinete Baixo") }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label> 
+        Fagote
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Fagote") }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Saxofone Soprano
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Saxofone Soprano") }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Saxofone Alto
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Saxofone Alto") }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Saxofone Tenor
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Saxofone Tenor") }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Saxofone Barítono
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Saxofone Barítono") }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header color="medium">
+      <ion-label>
+        Metais
+      </ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>
+        Trompete / Cornet
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Trompete / Cornet") }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Flugelhorn
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Flugelhorn") }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Trompa
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Trompa") }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Trombone / Trombonito
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Trombone / Trombonito") }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Barítono
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Barítono") }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Eufônio
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Eufônio") }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Tuba
+      </ion-label>
+      <ion-label class="ion-text-end">
+        {{ obterQuantidade("Tuba") }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

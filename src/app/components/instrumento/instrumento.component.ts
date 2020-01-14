@@ -13,7 +13,7 @@ export class InstrumentoComponent implements OnInit {
 
   constructor(
     private storage: Storage
-    ) { }
+  ) { }
 
   quantidade: number;
 
