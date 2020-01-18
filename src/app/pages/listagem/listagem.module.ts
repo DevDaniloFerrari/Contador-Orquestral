@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -7,20 +7,19 @@ import { IonicModule } from '@ionic/angular';
 import { ListagemPageRoutingModule } from './listagem-routing.module';
 
 import { ListagemPage } from './listagem.page';
-import { ComponentsModule } from 'src/app/components/components.module';
-import { InstrumentoComponent } from 'src/app/components/instrumento/instrumento.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ListagemPageRoutingModule,
-    ComponentsModule
+    ListagemPageRoutingModule
   ],
   declarations: [
-    ListagemPage,
-    InstrumentoComponent
+    ListagemPage
+  ],
+  schemas: [
+    NO_ERRORS_SCHEMA
   ]
 })
 export class ListagemPageModule {}
