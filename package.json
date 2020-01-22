@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.801.2",
-    "@angular-devkit/build-angular": "^0.803.22",
+    "@angular-devkit/build-angular": "^0.803.23",
     "@angular-devkit/core": "~8.1.2",
     "@angular-devkit/schematics": "~8.1.2",
     "@angular/cli": "~8.1.2",
@@ -61,7 +61,8 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.4.3"
+    "typescript": "~3.4.3",
+    "ws": "^7.2.1"
   },
   "description": "An Ionic project",
   "cordova": {

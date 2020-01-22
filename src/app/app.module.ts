@@ -1,4 +1,4 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -10,19 +10,17 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot()],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot(), ComponentsModule],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [AppComponent],
-  schemas: [
-    NO_ERRORS_SCHEMA
-  ]
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

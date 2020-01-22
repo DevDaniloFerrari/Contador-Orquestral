@@ -1,10 +1,13 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { ListagemPageRoutingModule } from './listagem-routing.module';
+
+import { ComponentsModule } from 'src/app/components/components.module';
+import { InstrumentoComponent } from 'src/app/components/instrumento/instrumento.component';
 
 import { ListagemPage } from './listagem.page';
 
@@ -13,13 +16,12 @@ import { ListagemPage } from './listagem.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ListagemPageRoutingModule
+    ListagemPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [
-    ListagemPage
-  ],
-  schemas: [
-    NO_ERRORS_SCHEMA
+    ListagemPage,
+    InstrumentoComponent
   ]
 })
 export class ListagemPageModule {}
