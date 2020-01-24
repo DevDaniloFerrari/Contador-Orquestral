@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { RelatorioPage } from './relatorio.page';
+import { TelaInicialPage } from './tela-inicial.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: RelatorioPage
+    component: TelaInicialPage
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class RelatorioPageRoutingModule {}
+export class TelaInicialPageRoutingModule {}

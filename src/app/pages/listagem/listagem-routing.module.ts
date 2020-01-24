@@ -1,4 +1,4 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ListagemPage } from './listagem.page';
@@ -12,9 +12,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-  schemas: [
-    NO_ERRORS_SCHEMA
-  ]
+  exports: [RouterModule]
 })
 export class ListagemPageRoutingModule {}
