@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-tela-inicial',
@@ -7,6 +8,9 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./tela-inicial.page.scss'],
 })
 export class TelaInicialPage implements OnInit {
+
+  public descricao: string;
+  public data: string;
 
   constructor(
     public navCtrl: NavController
