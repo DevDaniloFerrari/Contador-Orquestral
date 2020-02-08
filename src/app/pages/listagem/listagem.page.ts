@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
+import { Contagem } from 'src/app/shared/contagem';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-listagem',
@@ -8,12 +10,48 @@ import { AlertController, NavController } from '@ionic/angular';
 })
 export class ListagemPage implements OnInit {
 
+  public contagem: Contagem;
+  public chave: string;
+
   constructor(
     public alertController: AlertController,
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    public storage: Storage
     ) { }
 
   ngOnInit() {
+    this.contagemEmAndamento();
+  }
+
+  private contagemEmAndamento() {
+    this.storage.keys().then(contagens => {
+      const chave = contagens[contagens.length - 1];
+      this.obterContagem(chave);
+    });
+  }
+
+  private obterContagem(chave: string) {
+    this.storage.get(chave).then(
+      (contagem) => {
+          this.contagem = contagem;
+      }
+    );
+  }
+
+  public salvar() {
+    this.storage.keys().then(contagens => {
+      this.chave = contagens[contagens.length - 1];
+      this.storage.get(this.chave).then(
+        (contagem) => {
+          contagem.finalizada = true;
+          this.storage.set(this.chave, contagem).then(
+            (response) => {
+              this.navCtrl.navigateForward('relatorio');
+            }
+          );
+        }
+      );
+    });
   }
 
   async alertaDeConfirmacao() {
@@ -28,7 +66,7 @@ export class ListagemPage implements OnInit {
         }, {
           text: 'Confirmar',
           handler: () => {
-            this.navCtrl.navigateForward('relatorio');
+            this.salvar();
           }
         }
       ]

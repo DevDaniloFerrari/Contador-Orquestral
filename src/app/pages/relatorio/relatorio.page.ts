@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { Contagem } from 'src/app/shared/contagem';
 
 @Component({
   selector: 'app-relatorio',
@@ -8,25 +9,33 @@ import { Storage } from '@ionic/storage';
 })
 export class RelatorioPage implements OnInit {
 
+  public contagem: Contagem;
+
   constructor(
     private storage: Storage
   ) { }
 
-  private instrumentos: Map<string, number>;
-
   ngOnInit() {
-    this.instrumentos = new Map<string, number>();
-    this.obterQuantidades();
-  }
-
-  private obterQuantidades() {
-    this.storage.forEach((value, key) => {
-      this.instrumentos.set(key, value);
-    });
+    this.contagemEmAndamento();
   }
 
   public obterQuantidade(nomeDoInstrumento: string) {
-    return this.instrumentos.get(nomeDoInstrumento);
+    return this.contagem.instrumentos.find(f => f.nome === nomeDoInstrumento).quantidade;
+  }
+
+  private contagemEmAndamento() {
+    this.storage.keys().then(contagens => {
+      const chave = contagens[contagens.length - 1];
+      this.obterContagem(chave);
+    });
+  }
+
+  private obterContagem(chave: string) {
+    this.storage.get(chave).then(
+      (contagem) => {
+          this.contagem = contagem;
+      }
+    );
   }
 
 }

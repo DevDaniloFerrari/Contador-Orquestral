@@ -1,29 +1,42 @@
 <ion-content class="ion-text-center">
-  <ion-title class="ion-padding-top" style="padding: 64px"> Contador Orquestral </ion-title>
-    <ion-card stryle="transform: translate(-50%, -50%);">
-      <ion-card-content>
-        <ion-grid>
-          <ion-row>
-            <p>Descrição</p>
-          </ion-row>
-          <ion-row>
-            <ion-item>
-              <ion-input type="text" [(ngModel)]="descricao"></ion-input>
-            </ion-item>
-          </ion-row>
-          <ion-row>
-            <p>Data</p>
-          </ion-row>
-          <ion-row>
-            <ion-item>
-              <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="data" min="1994-01-11" max="2050-12-09"></ion-datetime>
-            </ion-item>
-          </ion-row>
-        </ion-grid>
-      </ion-card-content>
-    </ion-card>
+  <ion-title class="ion-padding-top" style="padding: 64px">
+    Contador Orquestral
+  </ion-title>
+  <ion-card stryle="transform: translate(-50%, -50%);">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <p>Descrição</p>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-input
+              [disabled]="!contagem?.finalizada"
+              type="text"
+              [(ngModel)]="descricao"
+            ></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <p>Data</p>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-datetime
+              displayFormat="DD/MM/YYYY"
+              [(ngModel)]="data"
+              min="1994-01-11"
+              max="2050-12-09"
+            ></ion-datetime>
+          </ion-item>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
 
 <ion-footer class="ion-text-center">
-  <ion-button (click)="iniciarContagem()"> Iniciar </ion-button>
+  <ion-button (click)="iniciarContagem()">
+    {{ contagem?.finalizada ? 'Iniciar' : 'Continuar' }}
+  </ion-button>
 </ion-footer>
