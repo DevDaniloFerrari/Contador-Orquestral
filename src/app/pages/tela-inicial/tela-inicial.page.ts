@@ -57,16 +57,25 @@ export class TelaInicialPage implements OnInit {
       (contagem) => {
         if (contagem != null) {
           this.contagem = contagem;
-          this.descricao = this.contagem.descricao;
-          this.data = this.data;
+          
+          if (!this.contagem.finalizada) {
+            this.navCtrl.navigateForward('listagem');
+            this.descricao = this.contagem.descricao;
+            this.data = this.data;
+          }
+        }else{
+          this.configurarContagemDoPrimeiroLogin();
         }
-
-        if (!this.contagem.finalizada) {
-          this.navCtrl.navigateForward('listagem');
-        }
-
       }
     );
   }
 
+  private configurarContagemDoPrimeiroLogin(){
+    this.contagem = new Contagem(null, null);
+    this.contagem.finalizada = true;
+  }
+
+  public historico(){
+    this.navCtrl.navigateForward('historico');
+  }
 }

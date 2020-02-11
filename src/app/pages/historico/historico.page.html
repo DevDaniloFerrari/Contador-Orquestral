@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tela-inicial" icon="arrow-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      Histórico
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card *ngFor="let contagem of contagens" (click)="extrairRelatorio(contagem)">
+      <ion-card-header>
+          <ion-card-title>{{ contagem.descricao }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        {{ contagem.data | date: 'dd/MM/yyyy H:mm' }}
+      </ion-card-content>
+    </ion-card>
+</ion-content>
