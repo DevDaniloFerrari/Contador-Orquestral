@@ -14,14 +14,15 @@ const routes: Routes = [
   {
     path: 'tela-inicial',
     loadChildren: () => import('./pages/tela-inicial/tela-inicial.module').then( m => m.TelaInicialPageModule)
-  },  {
-    path: 'estatistica',
-    loadChildren: () => import('./pages/estatistica/estatistica.module').then( m => m.EstatisticaPageModule)
   },
   {
     path: 'historico',
     loadChildren: () => import('./pages/historico/historico.module').then( m => m.HistoricoPageModule)
   },
+  {
+    path: 'relatorio-detalhe',
+    loadChildren: () => import('./pages/relatorio-detalhe/relatorio-detalhe.module').then( m => m.RelatorioDetalhePageModule)
+  }
 
 ];
 

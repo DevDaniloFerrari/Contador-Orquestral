@@ -57,13 +57,13 @@ export class TelaInicialPage implements OnInit {
       (contagem) => {
         if (contagem != null) {
           this.contagem = contagem;
-          
+
           if (!this.contagem.finalizada) {
             this.navCtrl.navigateForward('listagem');
             this.descricao = this.contagem.descricao;
             this.data = this.data;
           }
-        }else{
+        } else {
           this.configurarContagemDoPrimeiroLogin();
         }
       }

@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="relatorio" icon="arrow-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      Detalhes
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header class="ion-text-center">
+      Somas
+    </ion-list-header>
+    <ion-item>
+      <ion-label>
+        Cordas
+      </ion-label>
+      <ion-label class="ion-text-end">
+        0
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Madeiras
+      </ion-label>
+      <ion-label class="ion-text-end">
+        0
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Metais
+      </ion-label>
+      <ion-label class="ion-text-end">
+        0
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <canvas #barCanvas></canvas>
+  <ion-radio-group value="biff">
+    <ion-list-header>
+      <ion-label>Quantidade</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>60 Músicos</ion-label>
+      <ion-radio slot="start" value="biff"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>80 Músicos</ion-label>
+      <ion-radio slot="start" value="griff"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>100 Músicos</ion-label>
+      <ion-radio slot="start" value="buford"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+</ion-content>
+
+<ion-footer>
+  <ion-button color="success" expand="full" (click)="voltarParaTelaInicial()">
+    Tela Inicial
+  </ion-button>
+</ion-footer>

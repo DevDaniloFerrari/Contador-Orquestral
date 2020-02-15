@@ -23,6 +23,7 @@
         <ion-row>
           <ion-item>
             <ion-datetime
+              [disabled]="!contagem?.finalizada"
               displayFormat="DD/MM/YYYY"
               [(ngModel)]="data"
               min="1994-01-11"

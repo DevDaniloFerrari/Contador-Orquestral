@@ -24,11 +24,10 @@ export class RelatorioPage implements OnInit {
   ngOnInit() {
 
     this.route.queryParams.subscribe(params => {
-      if (!isUndefined(params["contagem"])){
-        this.contagem = JSON.parse(params["contagem"]);
+      if (!isUndefined(params.contagem)) {
+        this.contagem = JSON.parse(params.contagem);
         this.mostrarBotaoDeVoltar = true;
-      }
-      else{
+      } else {
         this.contagemEmAndamento();
         this.mostrarBotaoDeVoltar = false;
       }
@@ -55,7 +54,11 @@ export class RelatorioPage implements OnInit {
     );
   }
 
-  public voltar(){
+  public voltar() {
     this.navCtrl.back();
+  }
+
+  public abrirPaginaDeDetalhes() {
+    this.navCtrl.navigateForward('relatorio-detalhe');
   }
 }
