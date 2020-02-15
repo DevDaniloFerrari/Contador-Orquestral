@@ -15,7 +15,7 @@ export class HistoricoPage implements OnInit {
 
   constructor(
       private storage: Storage,
-       public navCtrl: NavController) { }
+      public navCtrl: NavController) { }
 
   ngOnInit() {
     this.obterHistorico();
@@ -37,8 +37,9 @@ export class HistoricoPage implements OnInit {
     this.storage.get(chave).then(
       (contagem) => {
         if (contagem != null) {
-          if(contagem.finalizada)
+          if (contagem.finalizada) {
             this.contagens.push(contagem);
+          }
         }
       }
     );
@@ -46,9 +47,10 @@ export class HistoricoPage implements OnInit {
 
   public extrairRelatorio(contagem: Contagem){
 
-    let navigationExtras: NavigationExtras = {
+    const navigationExtras: NavigationExtras = {
       queryParams: {
           contagem: JSON.stringify(contagem),
+          voltarParaHistorico: true
       }
   };
 

@@ -19,7 +19,7 @@
         Cordas
       </ion-label>
       <ion-label class="ion-text-end">
-        0
+        {{ totalDeCordas }}
       </ion-label>
     </ion-item>
     <ion-item>
@@ -27,7 +27,7 @@
         Madeiras
       </ion-label>
       <ion-label class="ion-text-end">
-        0
+        {{ totalDeMadeiras }}
       </ion-label>
     </ion-item>
     <ion-item>
@@ -35,29 +35,34 @@
         Metais
       </ion-label>
       <ion-label class="ion-text-end">
-        0
+        {{ totalDeMetais }}
       </ion-label>
     </ion-item>
   </ion-list>
   <canvas #barCanvas></canvas>
-  <ion-radio-group value="biff">
+  <ion-radio-group>
     <ion-list-header>
       <ion-label>Quantidade</ion-label>
     </ion-list-header>
+    
+    <ion-item>
+      <ion-label>40 Músicos</ion-label>
+      <ion-radio (click)="calcularTotalEsperado(40)" slot="start"></ion-radio>
+    </ion-item>
 
     <ion-item>
       <ion-label>60 Músicos</ion-label>
-      <ion-radio slot="start" value="biff"></ion-radio>
+      <ion-radio (click)="calcularTotalEsperado(60)" slot="start"></ion-radio>
     </ion-item>
 
     <ion-item>
       <ion-label>80 Músicos</ion-label>
-      <ion-radio slot="start" value="griff"></ion-radio>
+      <ion-radio (click)="calcularTotalEsperado(80)" slot="start"></ion-radio>
     </ion-item>
 
     <ion-item>
       <ion-label>100 Músicos</ion-label>
-      <ion-radio slot="start" value="buford"></ion-radio>
+      <ion-radio (click)="calcularTotalEsperado(100)" slot="start"></ion-radio>
     </ion-item>
   </ion-radio-group>
 </ion-content>
