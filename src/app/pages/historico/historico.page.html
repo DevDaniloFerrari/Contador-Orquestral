@@ -10,13 +10,35 @@
 </ion-header>
 
 <ion-content>
+  <div *ngIf="integracaoDeDados">
+    <ion-checkbox color="primary" *ngFor="let contagem of contagens">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ contagem.descricao }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          {{ contagem.data | date: 'dd/MM/yyyy H:mm' }}
+        </ion-card-content>
+      </ion-card>
+    </ion-checkbox>
+  </div>
+
+  <div *ngIf="!integracaoDeDados">
     <ion-card *ngFor="let contagem of contagens" (click)="extrairRelatorio(contagem)">
       <ion-card-header>
-          <ion-card-title>{{ contagem.descricao }}</ion-card-title>
+        <ion-card-title>{{ contagem.descricao }}</ion-card-title>
       </ion-card-header>
 
       <ion-card-content>
         {{ contagem.data | date: 'dd/MM/yyyy H:mm' }}
       </ion-card-content>
     </ion-card>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-button color="success" expand="full" (click)="ativarIntegracaoDeDados()">
+    Integrar contagens
+  </ion-button>
+</ion-footer>

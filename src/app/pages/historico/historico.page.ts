@@ -12,6 +12,7 @@ import { NavigationExtras } from '@angular/router';
 export class HistoricoPage implements OnInit {
 
   public contagens = Array<Contagem>();
+  public integracaoDeDados: boolean = false;
 
   constructor(
       private storage: Storage,
@@ -55,6 +56,10 @@ export class HistoricoPage implements OnInit {
   };
 
     this.navCtrl.navigateForward('relatorio', navigationExtras);
+  }
+
+  public ativarIntegracaoDeDados(){
+    this.integracaoDeDados = !this.integracaoDeDados;
   }
 
 }
