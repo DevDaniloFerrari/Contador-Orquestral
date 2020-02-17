@@ -1,11 +1,12 @@
 import { QrcodeModalPage } from './../qrcode-modal/qrcode-modal.page';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Chart } from 'chart.js';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { Contagem } from 'src/app/shared/contagem';
 import { isUndefined } from 'util';
 import { ModalController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-relatorio-detalhe',
@@ -21,6 +22,10 @@ export class RelatorioDetalhePage implements OnInit {
   public contagem: Contagem;
   public qrcode: string;
 
+  public contagemEscaneada: Contagem;
+
+  public chave: string;
+
   public totalDeCordas: number;
   public totalDeMadeiras: number;
   public totalDeMetais: number;
@@ -32,7 +37,9 @@ export class RelatorioDetalhePage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private route: ActivatedRoute,
-    private modalController: ModalController
+    private modalController: ModalController,
+    public alertController: AlertController,
+    public storage: Storage
   ) { }
 
   ngOnInit() {
@@ -183,15 +190,15 @@ export class RelatorioDetalhePage implements OnInit {
     }
   }
 
-  private gerarQrCode(){
+  private gerarQrCode() {
     this.qrcode = JSON.stringify(this.contagem);
   }
 
-  public async abrirModalDoQrCode(){
+  public async abrirModalDoQrCode() {
     const modal = await this.modalController.create({
-        component: QrcodeModalPage,componentProps: {
-          'qrcode': this.qrcode
-        }
+      component: QrcodeModalPage, componentProps: {
+        'qrcode': this.qrcode
+      }
     });
     return await modal.present();
   }

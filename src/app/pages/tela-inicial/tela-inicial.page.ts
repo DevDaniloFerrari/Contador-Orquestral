@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { Contagem } from 'src/app/shared/contagem';
 import { Storage } from '@ionic/storage';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @Component({
   selector: 'app-tela-inicial',
@@ -13,8 +14,14 @@ export class TelaInicialPage implements OnInit {
   public data: string;
   public contagem: Contagem;
   public chave: string;
+  public contagemEscaneada: Contagem;
 
-  constructor(public navCtrl: NavController, private storage: Storage) { }
+  constructor(
+    public navCtrl: NavController,
+    private storage: Storage,
+    private barcodeScanner: BarcodeScanner,
+    private alertController: AlertController
+  ) { }
 
   ngOnInit() {
     this.contagemEmAndamento();
@@ -70,12 +77,64 @@ export class TelaInicialPage implements OnInit {
     );
   }
 
-  private configurarContagemDoPrimeiroLogin(){
+  public escanearQrCode() {
+    this.barcodeScanner.scan().then(barcodeData => {
+      this.contagemEscaneada = JSON.parse(barcodeData.text);
+      this.contagemEscaneada.contagemIntegrada = true;
+      this.salvarNoHistorico();
+    }).catch(err => {
+      console.log('Error', err);
+    });
+  }
+
+  public salvarNoHistorico() {
+    this.storage.keys().then(contagens => {
+      this.chave = contagens[contagens.length];
+      this.storage.set(this.chave + 1, this.contagemEscaneada).then(
+        (response) => {
+          this.mostrarMensagemDeConfirmacao();
+        },
+        (error) => {
+          this.mostrarMensagemDeErro();
+        }
+      );
+    });
+  }
+
+  private async mostrarMensagemDeConfirmacao() {
+    const alert = await this.alertController.create({
+      header: 'Confirmação!',
+      message: 'Escaneado com sucesso!',
+      buttons: [
+        {
+          text: 'Continuar',
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  private async mostrarMensagemDeErro(){
+    const alert = await this.alertController.create({
+      header: 'Alerta!',
+      message: 'Erro ao escanear QR Code!',
+      buttons: [
+        {
+          text: 'Voltar',
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  private configurarContagemDoPrimeiroLogin() {
     this.contagem = new Contagem(null, null);
     this.contagem.finalizada = true;
   }
 
-  public historico(){
+  public historico() {
     this.navCtrl.navigateForward('historico');
   }
 }

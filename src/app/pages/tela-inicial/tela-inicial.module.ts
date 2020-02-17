@@ -1,3 +1,4 @@
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,7 @@ import { TelaInicialPage } from './tela-inicial.page';
     IonicModule,
     TelaInicialPageRoutingModule
   ],
-  declarations: [TelaInicialPage]
+  declarations: [TelaInicialPage],
+  providers: [BarcodeScanner]
 })
 export class TelaInicialPageModule {}
