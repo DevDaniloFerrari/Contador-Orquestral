@@ -89,8 +89,9 @@ export class TelaInicialPage implements OnInit {
 
   public salvarNoHistorico() {
     this.storage.keys().then(contagens => {
-      this.chave = contagens[contagens.length];
-      this.storage.set(this.chave + 1, this.contagemEscaneada).then(
+      this.chave = contagens[contagens.length-1];
+      let proximaChave = ((+this.chave) + 1).toString();
+      this.storage.set(proximaChave, this.contagemEscaneada).then(
         (response) => {
           this.mostrarMensagemDeConfirmacao();
         },
