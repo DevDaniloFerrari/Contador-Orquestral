@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">QR Code</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="qrcode">
+    <ngx-qrcode [qrc-value]="qrcode"></ngx-qrcode>
+    <ion-card-content>
+      Escaneie este QR Code para integrar os dados dessa contagem! 
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-button expand="full" (click)="fecharModal()">
+    Voltar
+  </ion-button>
+</ion-footer>

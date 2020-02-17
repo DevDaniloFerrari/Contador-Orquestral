@@ -44,7 +44,7 @@
     <ion-list-header>
       <ion-label>Quantidade</ion-label>
     </ion-list-header>
-    
+
     <ion-item>
       <ion-label>40 Músicos</ion-label>
       <ion-radio (click)="calcularTotalEsperado(40)" slot="start"></ion-radio>
@@ -65,9 +65,27 @@
       <ion-radio (click)="calcularTotalEsperado(100)" slot="start"></ion-radio>
     </ion-item>
   </ion-radio-group>
+
+
+
 </ion-content>
 
 <ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6>
+        <ion-button ion-button full (click)="abrirModalDoQrCode()">
+          Gerar QR Code
+        </ion-button>
+      </ion-col>
+      <ion-col col-6>
+        <ion-button ion-button full>
+          Exportar PDF
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   <ion-button color="success" expand="full" (click)="voltarParaTelaInicial()">
     Tela Inicial
   </ion-button>

@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'relatorio-detalhe',
     loadChildren: () => import('./pages/relatorio-detalhe/relatorio-detalhe.module').then( m => m.RelatorioDetalhePageModule)
+  },  {
+    path: 'qrcode-modal',
+    loadChildren: () => import('./pages/qrcode-modal/qrcode-modal.module').then( m => m.QrcodeModalPageModule)
   }
+
 
 ];
 
