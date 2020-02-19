@@ -2,7 +2,7 @@ import { IntegracaoContagemModalPage } from './../integracao-contagem-modal/inte
 import { Component, OnInit } from '@angular/core';
 import { Contagem } from 'src/app/shared/contagem';
 import { Storage } from '@ionic/storage';
-import { NavController, ModalController } from '@ionic/angular';
+import { NavController, ModalController, ToastController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 
 @Component({
@@ -19,7 +19,9 @@ export class HistoricoPage implements OnInit {
   constructor(
     private storage: Storage,
     public navCtrl: NavController,
-    private modalController: ModalController) { }
+    private modalController: ModalController,
+    public toastController: ToastController
+  ) { }
 
   ngOnInit() {
     this.obterHistorico();
@@ -95,12 +97,25 @@ export class HistoricoPage implements OnInit {
     this.contagensParaIntegracao.splice(0, this.contagensParaIntegracao.length);
     this.integracaoDeDados = false;
   }
-  
+
   private gerarContagemIntegrada() {
-    this.abrirModalDeIntegracao(this.contagensParaIntegracao);
+    if (this.contagensParaIntegracao.length >= 2)
+      this.abrirModalDeIntegracao(this.contagensParaIntegracao);
+    else
+      this.mostrarAvisoDeNenhumaContagemSelecionada();
   }
 
-  private atualizarHistorico(){
+  private async mostrarAvisoDeNenhumaContagemSelecionada() {
+    const toast = await this.toastController.create({
+      message: 'Secione ao menos 2 contagens!',
+      duration: 1500,
+      position: 'top'
+    });
+    toast.present();
+  }
+
+
+  private atualizarHistorico() {
     this.desativarIntegracaoDeDados();
     this.contagens.splice(0, this.contagens.length)
     this.obterHistorico();
