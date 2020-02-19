@@ -7,6 +7,7 @@ import { Contagem } from 'src/app/shared/contagem';
 import { isUndefined } from 'util';
 import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 @Component({
   selector: 'app-relatorio-detalhe',
@@ -39,7 +40,8 @@ export class RelatorioDetalhePage implements OnInit {
     private route: ActivatedRoute,
     private modalController: ModalController,
     public alertController: AlertController,
-    public storage: Storage
+    public storage: Storage,
+    private socialSharing: SocialSharing
   ) { }
 
   ngOnInit() {
@@ -201,6 +203,14 @@ export class RelatorioDetalhePage implements OnInit {
       }
     });
     return await modal.present();
+  }
+
+  public exportarPdf(){
+    this.socialSharing.share("teste", "teste", "teste","teste").then(() =>{
+
+    }).catch(() =>{
+
+    });  
   }
 
   public voltarParaTelaInicial() {

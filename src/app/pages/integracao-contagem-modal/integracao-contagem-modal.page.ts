@@ -31,6 +31,7 @@ export class IntegracaoContagemModalPage implements OnInit {
 
   private somarContagens() {
     var contagem = new Contagem(this.descricao, this.data, true);
+    contagem.finalizada = false;
 
     this.contagensParaIntegracao.forEach(
       f => {

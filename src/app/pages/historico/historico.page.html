@@ -22,6 +22,7 @@
           <ion-card>
             <ion-card-header>
               <ion-card-title>{{ contagem.descricao }}</ion-card-title>
+              <ion-card-subtitle *ngIf="contagem.contagemIntegrada"> Contagem Integrada </ion-card-subtitle>
             </ion-card-header>
     
             <ion-card-content>
@@ -38,6 +39,7 @@
     <ion-card *ngFor="let contagem of contagens" (click)="extrairRelatorio(contagem)">
       <ion-card-header>
         <ion-card-title>{{ contagem.descricao }}</ion-card-title>
+        <ion-card-subtitle *ngIf="contagem.contagemIntegrada">Contagem Integrada</ion-card-subtitle>
       </ion-card-header>
 
       <ion-card-content>
