@@ -7,7 +7,7 @@ export class Contagem{
     finalizada: boolean;
     contagemIntegrada: boolean;
 
-    constructor(descricao: string, data: string) {
+    constructor(descricao: string, data: string, contagemIntegrada: boolean) {
         this.descricao = descricao;
         this.data = data;
         this.instrumentos = [
@@ -35,6 +35,6 @@ export class Contagem{
             new Instrumento('Tuba' , 0)
         ];
         this.finalizada = false;
-        this.contagemIntegrada = false;
+        this.contagemIntegrada = contagemIntegrada;
     }
 }

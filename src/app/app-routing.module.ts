@@ -25,6 +25,10 @@ const routes: Routes = [
   },  {
     path: 'qrcode-modal',
     loadChildren: () => import('./pages/qrcode-modal/qrcode-modal.module').then( m => m.QrcodeModalPageModule)
+  },
+  {
+    path: 'integracao-contagem-modal',
+    loadChildren: () => import('./pages/integracao-contagem-modal/integracao-contagem-modal.module').then( m => m.IntegracaoContagemModalPageModule)
   }
 
 

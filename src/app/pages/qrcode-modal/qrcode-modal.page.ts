@@ -19,7 +19,7 @@ export class QrcodeModalPage implements OnInit {
     this.qrcode = this.navParams.get('qrcode');
   }
 
-  fecharModal() {
+  public async fecharModal() {
     this.modalController.dismiss({
       'dismissed': true
     });

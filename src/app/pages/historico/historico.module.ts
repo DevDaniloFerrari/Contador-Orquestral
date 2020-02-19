@@ -1,3 +1,4 @@
+import { IntegracaoContagemModalPageModule } from './../integracao-contagem-modal/integracao-contagem-modal.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +14,8 @@ import { HistoricoPage } from './historico.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    HistoricoPageRoutingModule
+    HistoricoPageRoutingModule,
+    IntegracaoContagemModalPageModule
   ],
   declarations: [HistoricoPage]
 })

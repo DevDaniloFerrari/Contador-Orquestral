@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Integração de Contagens</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center">
+  <ion-card stryle="transform: translate(-50%, -50%);">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <p>Descrição</p>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-input
+              type="text"
+              [(ngModel)]="descricao"
+            ></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <p>Data</p>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-datetime
+              displayFormat="DD/MM/YYYY"
+              [(ngModel)]="data"
+              min="1994-01-11"
+              max="2050-12-09"
+            ></ion-datetime>
+          </ion-item>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-button expand="full" (click)="fecharModal()">
+    Voltar
+  </ion-button>
+  <ion-button color="success" expand="full" (click)="salvar()">
+    Salvar  
+  </ion-button>
+</ion-footer>

@@ -1,7 +1,8 @@
+import { IntegracaoContagemModalPage } from './../integracao-contagem-modal/integracao-contagem-modal.page';
 import { Component, OnInit } from '@angular/core';
 import { Contagem } from 'src/app/shared/contagem';
 import { Storage } from '@ionic/storage';
-import { NavController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 
 @Component({
@@ -12,21 +13,23 @@ import { NavigationExtras } from '@angular/router';
 export class HistoricoPage implements OnInit {
 
   public contagens = Array<Contagem>();
+  public contagensParaIntegracao = Array<Contagem>();
   public integracaoDeDados: boolean = false;
 
   constructor(
-      private storage: Storage,
-      public navCtrl: NavController) { }
+    private storage: Storage,
+    public navCtrl: NavController,
+    private modalController: ModalController) { }
 
   ngOnInit() {
     this.obterHistorico();
   }
 
-  private obterHistorico(){
+  private obterHistorico() {
     this.obterChaves();
   }
 
-  private obterChaves(){
+  private obterChaves() {
     this.storage.keys().then(chaves => {
       chaves.forEach(chave => {
         this.obterContagem(chave);
@@ -46,20 +49,61 @@ export class HistoricoPage implements OnInit {
     );
   }
 
-  public extrairRelatorio(contagem: Contagem){
+  public extrairRelatorio(contagem: Contagem) {
 
     const navigationExtras: NavigationExtras = {
       queryParams: {
-          contagem: JSON.stringify(contagem),
-          voltarParaHistorico: true
+        contagem: JSON.stringify(contagem),
+        voltarParaHistorico: true
       }
-  };
+    };
 
     this.navCtrl.navigateForward('relatorio', navigationExtras);
   }
 
-  public ativarIntegracaoDeDados(){
-    this.integracaoDeDados = !this.integracaoDeDados;
+  public adicionarContagemParaIntegracao(contagem: Contagem) {
+    if (!this.contagensParaIntegracao.find(f => f == contagem))
+      this.contagensParaIntegracao.push(contagem);
+    else
+      this.contagensParaIntegracao.splice(this.contagensParaIntegracao.indexOf(contagem), 1);
+  }
+
+  public async abrirModalDeIntegracao(contagensParaIntegracao: Array<Contagem>) {
+    const modal = await this.modalController.create({
+      component: IntegracaoContagemModalPage, componentProps: {
+        'contagensParaIntegracao': contagensParaIntegracao
+      }
+    });
+
+    modal.onDidDismiss().then(
+      (data) => {
+        this.atualizarHistorico();
+      }
+    );
+
+    return await modal.present();
+  }
+
+  public ativarIntegracaoDeDados() {
+    if (this.integracaoDeDados)
+      this.gerarContagemIntegrada();
+
+    this.integracaoDeDados = true;
+  }
+
+  public desativarIntegracaoDeDados() {
+    this.contagensParaIntegracao.splice(0, this.contagensParaIntegracao.length);
+    this.integracaoDeDados = false;
+  }
+  
+  private gerarContagemIntegrada() {
+    this.abrirModalDeIntegracao(this.contagensParaIntegracao);
+  }
+
+  private atualizarHistorico(){
+    this.desativarIntegracaoDeDados();
+    this.contagens.splice(0, this.contagens.length)
+    this.obterHistorico();
   }
 
 }

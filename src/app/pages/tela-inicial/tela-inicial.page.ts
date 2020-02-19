@@ -36,7 +36,7 @@ export class TelaInicialPage implements OnInit {
   }
 
   private criarNovaContagem() {
-    this.contagem = new Contagem(this.descricao, this.data);
+    this.contagem = new Contagem(this.descricao, this.data, false);
 
     let proximaChave = ((+this.chave) + 1).toString();
 
@@ -131,7 +131,7 @@ export class TelaInicialPage implements OnInit {
   }
 
   private configurarContagemDoPrimeiroLogin() {
-    this.contagem = new Contagem(null, null);
+    this.contagem = new Contagem(null, null, false);
     this.contagem.finalizada = true;
   }
 
