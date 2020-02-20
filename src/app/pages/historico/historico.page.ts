@@ -14,7 +14,7 @@ export class HistoricoPage implements OnInit {
 
   public contagens = Array<Contagem>();
   public contagensParaIntegracao = Array<Contagem>();
-  public integracaoDeDados: boolean = false;
+  public integracaoDeDados = false;
 
   constructor(
     private storage: Storage,

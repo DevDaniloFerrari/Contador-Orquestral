@@ -10,6 +10,9 @@ import { RelatorioDetalhePageRoutingModule } from './relatorio-detalhe-routing.m
 
 import { RelatorioDetalhePage } from './relatorio-detalhe.page';
 
+import { File } from '@ionic-native/file/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +22,6 @@ import { RelatorioDetalhePage } from './relatorio-detalhe.page';
     QrcodeModalPageModule
   ],
   declarations: [RelatorioDetalhePage],
-  providers: [BarcodeScanner]
+  providers: [BarcodeScanner, File, FileOpener]
 })
 export class RelatorioDetalhePageModule {}

@@ -1,13 +1,21 @@
 import { QrcodeModalPage } from './../qrcode-modal/qrcode-modal.page';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Chart } from 'chart.js';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, Platform } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { Contagem } from 'src/app/shared/contagem';
 import { isUndefined } from 'util';
 import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { SocialSharing } from '@ionic-native/social-sharing';
+import { File } from '@ionic-native/file/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+
+
 
 @Component({
   selector: 'app-relatorio-detalhe',
@@ -35,13 +43,15 @@ export class RelatorioDetalhePage implements OnInit {
   public totalEsperadoDeMadeiras: number;
   public totalEsperadoDeMetais: number;
 
+  pdfObj = null;
+
   constructor(
     private navCtrl: NavController,
     private route: ActivatedRoute,
     private modalController: ModalController,
-    public alertController: AlertController,
-    public storage: Storage,
-    private socialSharing: SocialSharing
+    private platform: Platform,
+    private file: File,
+    private fileOpener: FileOpener
   ) { }
 
   ngOnInit() {
@@ -163,6 +173,10 @@ export class RelatorioDetalhePage implements OnInit {
     return this.totalDeMetais;
   }
 
+  private obterTotalGeral(): number {
+    return this.totalDeCordas + this.totalDeMadeiras + this.totalDeMetais;
+  }
+
   public calcularTotalEsperado(quantidadeTotalDaOrquestra: number) {
     switch (quantidadeTotalDaOrquestra) {
       case (40):
@@ -199,18 +213,134 @@ export class RelatorioDetalhePage implements OnInit {
   public async abrirModalDoQrCode() {
     const modal = await this.modalController.create({
       component: QrcodeModalPage, componentProps: {
-        'qrcode': this.qrcode
+        qrcode: this.qrcode
       }
     });
     return await modal.present();
   }
 
-  public exportarPdf(){
-    this.socialSharing.share("teste", "teste", "teste","teste").then(() =>{
+  public exportarPdf() {
+    const docDefinition = {
+      content: [
+        { text: this.contagem.descricao, style: 'header' },
+        { text: this.contagem.data, alignment: 'right' },
 
-    }).catch(() =>{
+        { text: 'Cordas', style: 'subheader', alignment: 'center' },
+        {
+          table: {
+            headerRows: 1,
+            widths: [100, 50],
 
-    });  
+            body: [
+              ['Violino', { text: this.obterQuantidade('Violino'), alignment: 'center' }],
+              ['Viola', { text: this.obterQuantidade('Viola'), alignment: 'center' }],
+              ['Violoncelo', { text: this.obterQuantidade('Violoncelo'), alignment: 'center' }]
+            ]
+          },
+
+        },
+
+        { text: 'Madeiras', style: 'subheader', alignment: 'center' },
+        {
+          table: {
+            headerRows: 1,
+            widths: [100, 50],
+
+            body: [
+              ['Flauta Transversal', { text: this.obterQuantidade('Flauta Transversal'), alignment: 'center' }],
+              ['Oboé', { text: this.obterQuantidade('Oboé'), alignment: 'center' }],
+              ["Oboé D'Amore", { text: this.obterQuantidade("Oboé D'Amore"), alignment: 'center' }],
+              ['Corne Inglês', { text: this.obterQuantidade('Corne Inglês'), alignment: 'center' }],
+              ['Clarinete', { text: this.obterQuantidade('Clarinete'), alignment: 'center' }],
+              ['Clarinete Alto', { text: this.obterQuantidade('Clarinete Alto'), alignment: 'center' }],
+              ['Clarinete Baixo', { text: this.obterQuantidade('Clarinete Baixo'), alignment: 'center' }],
+              ['Fagote', { text: this.obterQuantidade('Fagote'), alignment: 'center' }],
+              ['Saxofone Soprano', { text: this.obterQuantidade('Saxofone Soprano'), alignment: 'center' }],
+              ['Saxofone Alto', { text: this.obterQuantidade('Saxofone Alto'), alignment: 'center' }],
+              ['Saxofone Tenor', { text: this.obterQuantidade('Saxofone Tenor'), alignment: 'center' }],
+              ['Saxofone Barítono', { text: this.obterQuantidade('Saxofone Barítono'), alignment: 'center' }],
+            ]
+          },
+
+        },
+
+        { text: 'Metais', style: 'subheader', alignment: 'center' },
+        {
+          table: {
+            headerRows: 1,
+            widths: [150, 50],
+
+            body: [
+              ['Trompete / Cornet', { text: this.obterQuantidade('Trompete / Cornet'), alignment: 'center' }],
+              ['Flugelhorn', { text: this.obterQuantidade('Flugelhorn'), alignment: 'center' }],
+              ['Trompa', { text: this.obterQuantidade('Trompa'), alignment: 'center' }],
+              ['Trombone / Trombonito', { text: this.obterQuantidade('Trombone / Trombonito'), alignment: 'center' }],
+              ['Barítono', { text: this.obterQuantidade('Barítono'), alignment: 'center' }],
+              ['Eufônio', { text: this.obterQuantidade('Eufônio'), alignment: 'center' }],
+              ['Tuba', { text: this.obterQuantidade('Tuba'), alignment: 'center' }]
+            ]
+          }
+        },
+
+        { text: 'Total', style: 'subheader', alignment: 'center' },
+        {
+          table: {
+            headerRows: 1,
+            widths: [150, 50],
+            alignment: 'center',
+
+            body: [
+              ['Cordas', { text: this.totalDeCordas, alignment: 'center' }],
+              ['Madeiras', { text: this.totalDeMadeiras, alignment: 'center' }],
+              ['Metais', { text: this.totalDeMetais, alignment: 'center' }],
+              [{ text: 'Total geral', bold: true }, { text: this.obterTotalGeral(), alignment: 'center', bold: true }],
+            ]
+          }
+        },
+
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+        },
+        subheader: {
+          fontSize: 14,
+          bold: true,
+          margin: [0, 15, 0, 0]
+        },
+        story: {
+          italic: true,
+          alignment: 'center',
+          width: '50%',
+        }
+      }
+    }
+
+    this.pdfObj = pdfMake.createPdf(docDefinition);
+
+    this.downloadPdf();
+  }
+
+  private downloadPdf() {
+    if (this.platform.is('cordova')) {
+      this.pdfObj.getBuffer((buffer) => {
+        var blob = new Blob([buffer], { type: 'application/pdf' });
+
+        // Save the PDF to the data Directory of our App
+        this.file.writeFile(this.file.dataDirectory, 'myletter.pdf', blob, { replace: true }).then(fileEntry => {
+          // Open the PDf with the correct OS tools
+          this.fileOpener.open(this.file.dataDirectory + 'myletter.pdf', 'application/pdf');
+        })
+      });
+    } else {
+      // On a browser simply use download!
+      this.pdfObj.download();
+    }
+  }
+
+  private obterQuantidade(nomeDoInstrumento: string) {
+    return this.contagem.instrumentos.find(f => f.nome === nomeDoInstrumento).quantidade;
   }
 
   public voltarParaTelaInicial() {
