@@ -51,9 +51,12 @@
 
 <ion-footer>
   <ion-button *ngIf="integracaoDeDados" expand="full" (click)="desativarIntegracaoDeDados()">
+    <ion-icon slot="start" name="close"></ion-icon>
     Cancelar  
   </ion-button>
   <ion-button color="success" expand="full" (click)="ativarIntegracaoDeDados()">
+    <ion-icon *ngIf="integracaoDeDados" slot="start" name="checkmark-circle-outline"></ion-icon>
+    <ion-icon *ngIf="!integracaoDeDados" slot="start" name="git-network"></ion-icon>
     {{ integracaoDeDados ? 'Concluído' : 'Integrar contagens' }}  
   </ion-button>
 </ion-footer>

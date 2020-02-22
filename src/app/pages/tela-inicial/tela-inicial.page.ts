@@ -100,7 +100,6 @@ export class TelaInicialPage implements OnInit {
   }
 
   private preencherEntradas(){
-    this.navCtrl.navigateForward('listagem');
     this.descricao = this.contagem.descricao;
     this.data = this.contagem.data;
   }
