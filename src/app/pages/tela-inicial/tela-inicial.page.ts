@@ -29,6 +29,10 @@ export class TelaInicialPage implements OnInit {
     this.contagemEmAndamento();
   }
 
+  ionViewWillEnter() {
+    this.contagemEmAndamento();
+  }
+
   public iniciarContagem() {
     if (this.camposValidos()) {
       if (this.contagem.finalizada) {
@@ -74,17 +78,31 @@ export class TelaInicialPage implements OnInit {
       (contagem) => {
         if (contagem != null) {
           this.contagem = contagem;
-
-          if (!this.contagem.finalizada) {
-            this.navCtrl.navigateForward('listagem');
-            this.descricao = this.contagem.descricao;
-            this.data = this.data;
-          }
+          this.verificarFinalizacao();
         } else {
           this.configurarContagemDoPrimeiroLogin();
         }
       }
     );
+  }
+
+  private verificarFinalizacao() {
+    if (this.contagem.finalizada) {
+      this.resetarEntradas();
+    } else {
+      this.preencherEntradas();
+    }
+  }
+
+  private resetarEntradas(){
+    this.descricao = undefined;
+    this.data = undefined;
+  }
+
+  private preencherEntradas(){
+    this.navCtrl.navigateForward('listagem');
+    this.descricao = this.contagem.descricao;
+    this.data = this.contagem.data;
   }
 
   public escanearQrCode() {
@@ -150,7 +168,7 @@ export class TelaInicialPage implements OnInit {
   }
 
   private configurarContagemDoPrimeiroLogin() {
-    this.contagem = new Contagem(null, null, false);
+    this.contagem = new Contagem(undefined, undefined, false);
     this.contagem.finalizada = true;
   }
 

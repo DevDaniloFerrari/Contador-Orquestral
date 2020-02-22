@@ -6,7 +6,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Contagem } from 'src/app/shared/contagem';
 import { isUndefined } from 'util';
 import { ModalController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
 import { File } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 
@@ -325,13 +324,13 @@ export class RelatorioDetalhePage implements OnInit {
   private downloadPdf() {
     if (this.platform.is('cordova')) {
       this.pdfObj.getBuffer((buffer) => {
-        var blob = new Blob([buffer], { type: 'application/pdf' });
+        const blob = new Blob([buffer], { type: 'application/pdf' });
 
         // Save the PDF to the data Directory of our App
-        this.file.writeFile(this.file.dataDirectory, 'myletter.pdf', blob, { replace: true }).then(fileEntry => {
+        this.file.writeFile(this.file.dataDirectory, 'contagem.pdf', blob, { replace: true }).then(fileEntry => {
           // Open the PDf with the correct OS tools
-          this.fileOpener.open(this.file.dataDirectory + 'myletter.pdf', 'application/pdf');
-        })
+          this.fileOpener.open(this.file.dataDirectory + 'contagem.pdf', 'application/pdf');
+        });
       });
     } else {
       // On a browser simply use download!
