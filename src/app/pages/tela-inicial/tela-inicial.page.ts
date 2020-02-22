@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, ToastController } from '@ionic/angular';
 import { Contagem } from 'src/app/shared/contagem';
 import { Storage } from '@ionic/storage';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { isUndefined } from 'util';
 
 @Component({
   selector: 'app-tela-inicial',
@@ -20,7 +21,8 @@ export class TelaInicialPage implements OnInit {
     public navCtrl: NavController,
     private storage: Storage,
     private barcodeScanner: BarcodeScanner,
-    private alertController: AlertController
+    private alertController: AlertController,
+    public toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -28,11 +30,19 @@ export class TelaInicialPage implements OnInit {
   }
 
   public iniciarContagem() {
-    if (this.contagem.finalizada) {
-      this.criarNovaContagem();
+    if (this.camposValidos()) {
+      if (this.contagem.finalizada) {
+        this.criarNovaContagem();
+      } else {
+        this.navCtrl.navigateForward('listagem');
+      }
     } else {
-      this.navCtrl.navigateForward('listagem');
+      this.mostrarAvisoDeCamposVazios();
     }
+  }
+
+  private camposValidos() {
+    return (!isUndefined(this.descricao) && this.descricao !== '') && !isUndefined(this.data);
   }
 
   private criarNovaContagem() {
@@ -89,8 +99,8 @@ export class TelaInicialPage implements OnInit {
 
   public salvarNoHistorico() {
     this.storage.keys().then(contagens => {
-      this.chave = contagens[contagens.length-1];
-      let proximaChave = ((+this.chave) + 1).toString();
+      this.chave = contagens[contagens.length - 1];
+      const proximaChave = ((+this.chave) + 1).toString();
       this.storage.set(proximaChave, this.contagemEscaneada).then(
         (response) => {
           this.mostrarMensagemDeConfirmacao();
@@ -116,7 +126,7 @@ export class TelaInicialPage implements OnInit {
     await alert.present();
   }
 
-  private async mostrarMensagemDeErro(){
+  private async mostrarMensagemDeErro() {
     const alert = await this.alertController.create({
       header: 'Alerta!',
       message: 'Erro ao escanear QR Code!',
@@ -128,6 +138,15 @@ export class TelaInicialPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  private async mostrarAvisoDeCamposVazios() {
+    const toast = await this.toastController.create({
+      message: 'Preencha os campos descrição e data corretamente!',
+      duration: 1500,
+      position: 'top'
+    });
+    toast.present();
   }
 
   private configurarContagemDoPrimeiroLogin() {
