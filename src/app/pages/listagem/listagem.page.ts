@@ -12,6 +12,7 @@ export class ListagemPage implements OnInit {
 
   public contagem: Contagem;
   public chave: string;
+  public naipe = 'cordas';
 
   constructor(
     public alertController: AlertController,

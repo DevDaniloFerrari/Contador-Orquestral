@@ -172,7 +172,7 @@ export class RelatorioDetalhePage implements OnInit {
     return this.totalDeMetais;
   }
 
-  private obterTotalGeral(): number {
+  public obterTotalGeral(): number {
     return this.totalDeCordas + this.totalDeMadeiras + this.totalDeMetais;
   }
 

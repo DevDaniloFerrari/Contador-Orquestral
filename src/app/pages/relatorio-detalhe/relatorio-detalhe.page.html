@@ -38,6 +38,14 @@
         {{ totalDeMetais }}
       </ion-label>
     </ion-item>
+    <ion-item>
+      <ion-label style="font-weight: bold;">
+        Total Geral
+      </ion-label>
+      <ion-label class="ion-text-end" style="font-weight: bold;">
+        {{ obterTotalGeral() }}
+      </ion-label>
+    </ion-item>
   </ion-list>
   <canvas #barCanvas></canvas>
   <ion-radio-group>
