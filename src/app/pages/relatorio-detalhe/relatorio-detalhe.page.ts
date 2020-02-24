@@ -327,9 +327,9 @@ export class RelatorioDetalhePage implements OnInit {
         const blob = new Blob([buffer], { type: 'application/pdf' });
 
         // Save the PDF to the data Directory of our App
-        this.file.writeFile(this.file.applicationDirectory, 'contagem.pdf', blob, { replace: true }).then(fileEntry => {
+        this.file.writeFile(this.file.externalRootDirectory, 'contagem.pdf', blob, { replace: true }).then(fileEntry => {
           // Open the PDf with the correct OS tools
-          this.fileOpener.open(this.file.applicationDirectory + 'contagem.pdf', 'application/pdf');
+          this.fileOpener.open(this.file.externalRootDirectory + 'contagem.pdf', 'application/pdf');
         });
       });
     } else {
