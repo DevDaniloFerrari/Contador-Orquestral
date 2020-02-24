@@ -109,10 +109,6 @@ export class TelaInicialPage implements OnInit {
       this.contagemEscaneada = JSON.parse(barcodeData.text);
       this.contagemEscaneada.contagemIntegrada = true;
       this.salvarNoHistorico();
-    }).catch(error => {
-      if (error) {
-        this.mostrarMensagemDeErro();
-      }
     });
   }
 
