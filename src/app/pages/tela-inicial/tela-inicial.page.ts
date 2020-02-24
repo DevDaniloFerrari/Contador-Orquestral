@@ -110,7 +110,7 @@ export class TelaInicialPage implements OnInit {
       this.contagemEscaneada.contagemIntegrada = true;
       this.salvarNoHistorico();
     }).catch(err => {
-      console.log('Error', err);
+      this.mostrarMensagemDeErro();
     });
   }
 
