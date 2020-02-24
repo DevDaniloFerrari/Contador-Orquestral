@@ -94,12 +94,12 @@ export class TelaInicialPage implements OnInit {
     }
   }
 
-  private resetarEntradas(){
+  private resetarEntradas() {
     this.descricao = undefined;
     this.data = undefined;
   }
 
-  private preencherEntradas(){
+  private preencherEntradas() {
     this.descricao = this.contagem.descricao;
     this.data = this.contagem.data;
   }
@@ -109,8 +109,10 @@ export class TelaInicialPage implements OnInit {
       this.contagemEscaneada = JSON.parse(barcodeData.text);
       this.contagemEscaneada.contagemIntegrada = true;
       this.salvarNoHistorico();
-    }).catch(err => {
-      this.mostrarMensagemDeErro();
+    }).catch(error => {
+      if (error) {
+        this.mostrarMensagemDeErro();
+      }
     });
   }
 
