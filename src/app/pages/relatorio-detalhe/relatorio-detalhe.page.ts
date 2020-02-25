@@ -1,7 +1,7 @@
 import { QrcodeModalPage } from './../qrcode-modal/qrcode-modal.page';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Chart } from 'chart.js';
-import { NavController, AlertController, Platform } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { Contagem } from 'src/app/shared/contagem';
 import { isUndefined } from 'util';
@@ -218,103 +218,216 @@ export class RelatorioDetalhePage implements OnInit {
     return await modal.present();
   }
 
+  private formatarData(data: string): string {
+    return new Date(data).toLocaleDateString();
+  }
+
   public exportarPdf() {
     const docDefinition = {
       content: [
-        { text: this.contagem.descricao, style: 'header' },
-        { text: this.contagem.data, alignment: 'right' },
-
-        { text: 'Cordas', style: 'subheader', alignment: 'center' },
         {
-          table: {
-            headerRows: 1,
-            widths: [100, 50],
+          columns: [
+            {
+              stack: [
+                { text: this.contagem.descricao, style: 'header' },
+                { text: this.formatarData(this.contagem.data), alignment: 'left' },
+                { text: 'Cordas', style: 'subheader', alignment: 'left' },
+                {
 
-            body: [
-              ['Violino', { text: this.obterQuantidade('Violino'), alignment: 'center' }],
-              ['Viola', { text: this.obterQuantidade('Viola'), alignment: 'center' }],
-              ['Violoncelo', { text: this.obterQuantidade('Violoncelo'), alignment: 'center' }]
-            ]
-          },
+                  table: {
+                    headerRows: 1,
+                    widths: [190, 50],
+                    body: [
+                      ['Violino', { text: this.obterQuantidade('Violino'), alignment: 'center' }],
+                      ['Viola', { text: this.obterQuantidade('Viola'), alignment: 'center' }],
+                      ['Violoncelo', { text: this.obterQuantidade('Violoncelo'), alignment: 'center' }]
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              stack: [
+                { text: this.contagem.descricao, style: 'header' },
+                { text: this.formatarData(this.contagem.data), alignment: 'left' },
+                { text: 'Cordas', style: 'subheader', alignment: 'left' },
+                {
 
+                  table: {
+                    headerRows: 1,
+                    widths: [190, 50],
+                    body: [
+                      ['Violino', { text: this.obterQuantidade('Violino'), alignment: 'center' }],
+                      ['Viola', { text: this.obterQuantidade('Viola'), alignment: 'center' }],
+                      ['Violoncelo', { text: this.obterQuantidade('Violoncelo'), alignment: 'center' }]
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
         },
 
-        { text: 'Madeiras', style: 'subheader', alignment: 'center' },
+
         {
-          table: {
-            headerRows: 1,
-            widths: [100, 50],
+          alignment: 'justify',
+          columns: [
+            {
+              stack: [
+                { text: 'Madeiras', style: 'subheader', alignment: 'left' },
+                {
+                  table: {
+                    headerRows: 1,
+                    widths: [190, 50],
+                    body: [
+                      ['Flauta Transversal', { text: this.obterQuantidade('Flauta Transversal'), alignment: 'center' }],
+                      ['Oboé', { text: this.obterQuantidade('Oboé'), alignment: 'center' }],
+                      ["Oboé D'Amore", { text: this.obterQuantidade("Oboé D'Amore"), alignment: 'center' }],
+                      ['Corne Inglês', { text: this.obterQuantidade('Corne Inglês'), alignment: 'center' }],
+                      ['Clarinete', { text: this.obterQuantidade('Clarinete'), alignment: 'center' }],
+                      ['Clarinete Alto', { text: this.obterQuantidade('Clarinete Alto'), alignment: 'center' }],
+                      ['Clarinete Baixo', { text: this.obterQuantidade('Clarinete Baixo'), alignment: 'center' }],
+                      ['Fagote', { text: this.obterQuantidade('Fagote'), alignment: 'center' }],
+                      ['Saxofone Soprano', { text: this.obterQuantidade('Saxofone Soprano'), alignment: 'center' }],
+                      ['Saxofone Alto', { text: this.obterQuantidade('Saxofone Alto'), alignment: 'center' }],
+                      ['Saxofone Tenor', { text: this.obterQuantidade('Saxofone Tenor'), alignment: 'center' }],
+                      ['Saxofone Barítono', { text: this.obterQuantidade('Saxofone Barítono'), alignment: 'center' }],
+                    ]
+                  },
 
-            body: [
-              ['Flauta Transversal', { text: this.obterQuantidade('Flauta Transversal'), alignment: 'center' }],
-              ['Oboé', { text: this.obterQuantidade('Oboé'), alignment: 'center' }],
-              ["Oboé D'Amore", { text: this.obterQuantidade("Oboé D'Amore"), alignment: 'center' }],
-              ['Corne Inglês', { text: this.obterQuantidade('Corne Inglês'), alignment: 'center' }],
-              ['Clarinete', { text: this.obterQuantidade('Clarinete'), alignment: 'center' }],
-              ['Clarinete Alto', { text: this.obterQuantidade('Clarinete Alto'), alignment: 'center' }],
-              ['Clarinete Baixo', { text: this.obterQuantidade('Clarinete Baixo'), alignment: 'center' }],
-              ['Fagote', { text: this.obterQuantidade('Fagote'), alignment: 'center' }],
-              ['Saxofone Soprano', { text: this.obterQuantidade('Saxofone Soprano'), alignment: 'center' }],
-              ['Saxofone Alto', { text: this.obterQuantidade('Saxofone Alto'), alignment: 'center' }],
-              ['Saxofone Tenor', { text: this.obterQuantidade('Saxofone Tenor'), alignment: 'center' }],
-              ['Saxofone Barítono', { text: this.obterQuantidade('Saxofone Barítono'), alignment: 'center' }],
-            ]
-          },
+                }
+              ]
+            },
+            {
+              stack: [
+                { text: 'Madeiras', style: 'subheader', alignment: 'left' },
+                {
+                  table: {
+                    headerRows: 1,
+                    widths: [190, 50],
+                    body: [
+                      ['Flauta Transversal', { text: this.obterQuantidade('Flauta Transversal'), alignment: 'center' }],
+                      ['Oboé', { text: this.obterQuantidade('Oboé'), alignment: 'center' }],
+                      ["Oboé D'Amore", { text: this.obterQuantidade("Oboé D'Amore"), alignment: 'center' }],
+                      ['Corne Inglês', { text: this.obterQuantidade('Corne Inglês'), alignment: 'center' }],
+                      ['Clarinete', { text: this.obterQuantidade('Clarinete'), alignment: 'center' }],
+                      ['Clarinete Alto', { text: this.obterQuantidade('Clarinete Alto'), alignment: 'center' }],
+                      ['Clarinete Baixo', { text: this.obterQuantidade('Clarinete Baixo'), alignment: 'center' }],
+                      ['Fagote', { text: this.obterQuantidade('Fagote'), alignment: 'center' }],
+                      ['Saxofone Soprano', { text: this.obterQuantidade('Saxofone Soprano'), alignment: 'center' }],
+                      ['Saxofone Alto', { text: this.obterQuantidade('Saxofone Alto'), alignment: 'center' }],
+                      ['Saxofone Tenor', { text: this.obterQuantidade('Saxofone Tenor'), alignment: 'center' }],
+                      ['Saxofone Barítono', { text: this.obterQuantidade('Saxofone Barítono'), alignment: 'center' }],
+                    ]
+                  },
 
+                }
+              ]
+            }
+          ]
         },
 
-        { text: 'Metais', style: 'subheader', alignment: 'center' },
-        {
-          table: {
-            headerRows: 1,
-            widths: [150, 50],
 
-            body: [
-              ['Trompete / Cornet', { text: this.obterQuantidade('Trompete / Cornet'), alignment: 'center' }],
-              ['Flugelhorn', { text: this.obterQuantidade('Flugelhorn'), alignment: 'center' }],
-              ['Trompa', { text: this.obterQuantidade('Trompa'), alignment: 'center' }],
-              ['Trombone / Trombonito', { text: this.obterQuantidade('Trombone / Trombonito'), alignment: 'center' }],
-              ['Barítono', { text: this.obterQuantidade('Barítono'), alignment: 'center' }],
-              ['Eufônio', { text: this.obterQuantidade('Eufônio'), alignment: 'center' }],
-              ['Tuba', { text: this.obterQuantidade('Tuba'), alignment: 'center' }]
-            ]
-          }
+        {
+          alignment: 'justify',
+          columns: [
+            {
+              stack: [
+                { text: 'Metais', style: 'subheader', alignment: 'left' },
+                {
+                  table: {
+                    headerRows: 1,
+                    widths: [190, 50],
+                    body: [
+                      ['Trompete / Cornet', { text: this.obterQuantidade('Trompete / Cornet'), alignment: 'center' }],
+                      ['Flugelhorn', { text: this.obterQuantidade('Flugelhorn'), alignment: 'center' }],
+                      ['Trompa', { text: this.obterQuantidade('Trompa'), alignment: 'center' }],
+                      ['Trombone / Trombonito', { text: this.obterQuantidade('Trombone / Trombonito'), alignment: 'center' }],
+                      ['Barítono', { text: this.obterQuantidade('Barítono'), alignment: 'center' }],
+                      ['Eufônio', { text: this.obterQuantidade('Eufônio'), alignment: 'center' }],
+                      ['Tuba', { text: this.obterQuantidade('Tuba'), alignment: 'center' }]
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              stack: [
+                { text: 'Metais', style: 'subheader', alignment: 'left' },
+                {
+                  table: {
+                    headerRows: 1,
+                    widths: [190, 50],
+                    body: [
+                      ['Trompete / Cornet', { text: this.obterQuantidade('Trompete / Cornet'), alignment: 'center' }],
+                      ['Flugelhorn', { text: this.obterQuantidade('Flugelhorn'), alignment: 'center' }],
+                      ['Trompa', { text: this.obterQuantidade('Trompa'), alignment: 'center' }],
+                      ['Trombone / Trombonito', { text: this.obterQuantidade('Trombone / Trombonito'), alignment: 'center' }],
+                      ['Barítono', { text: this.obterQuantidade('Barítono'), alignment: 'center' }],
+                      ['Eufônio', { text: this.obterQuantidade('Eufônio'), alignment: 'center' }],
+                      ['Tuba', { text: this.obterQuantidade('Tuba'), alignment: 'center' }]
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
         },
 
-        { text: 'Total', style: 'subheader', alignment: 'center' },
+
+
         {
-          table: {
-            headerRows: 1,
-            widths: [150, 50],
-            alignment: 'center',
-
-            body: [
-              ['Cordas', { text: this.totalDeCordas, alignment: 'center' }],
-              ['Madeiras', { text: this.totalDeMadeiras, alignment: 'center' }],
-              ['Metais', { text: this.totalDeMetais, alignment: 'center' }],
-              [{ text: 'Total geral', bold: true }, { text: this.obterTotalGeral(), alignment: 'center', bold: true }],
-            ]
-          }
-        },
-
+          alignment: 'justify',
+          columns: [
+            {
+              stack: [
+                { text: 'Total', style: 'subheader', alignment: 'left' },
+                {
+                  table: {
+                    headerRows: 1,
+                    widths: [190, 50],
+                    body: [
+                      ['Cordas', { text: this.totalDeCordas, alignment: 'center' }],
+                      ['Madeiras', { text: this.totalDeMadeiras, alignment: 'center' }],
+                      ['Metais', { text: this.totalDeMetais, alignment: 'center' }],
+                      [{ text: 'Total geral', bold: true }, { text: this.obterTotalGeral(), alignment: 'center', bold: true }],
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              stack: [
+                { text: 'Total', style: 'subheader', alignment: 'left' },
+                {
+                  table: {
+                    headerRows: 1,
+                    widths: [190, 50],
+                    body: [
+                      ['Cordas', { text: this.totalDeCordas, alignment: 'center' }],
+                      ['Madeiras', { text: this.totalDeMadeiras, alignment: 'center' }],
+                      ['Metais', { text: this.totalDeMetais, alignment: 'center' }],
+                      [{ text: 'Total geral', bold: true }, { text: this.obterTotalGeral(), alignment: 'center', bold: true }],
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
       ],
       styles: {
         header: {
-          fontSize: 18,
-          bold: true,
+          fontSize: 25,
+          bold: true
         },
         subheader: {
           fontSize: 14,
           bold: true,
           margin: [0, 15, 0, 0]
-        },
-        story: {
-          italic: true,
-          alignment: 'center',
-          width: '50%',
         }
       }
-    }
+    };
 
     this.pdfObj = pdfMake.createPdf(docDefinition);
 
@@ -323,7 +436,7 @@ export class RelatorioDetalhePage implements OnInit {
 
   private downloadPdf() {
     if (this.platform.is('android') || this.platform.is('ios')) {
-      this.pdfObj.getBuffer((buffer) => {
+      this.pdfObj.getBuffer((buffer: BlobPart) => {
         const blob = new Blob([buffer], { type: 'application/pdf' });
 
         // Save the PDF to the data Directory of our App
