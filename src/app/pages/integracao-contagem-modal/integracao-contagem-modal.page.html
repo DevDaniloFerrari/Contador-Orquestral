@@ -13,10 +13,7 @@
         </ion-row>
         <ion-row>
           <ion-item>
-            <ion-input
-              type="text"
-              [(ngModel)]="descricao"
-            ></ion-input>
+            <ion-input type="text" [(ngModel)]="descricao"></ion-input>
           </ion-item>
         </ion-row>
         <ion-row>
@@ -35,6 +32,9 @@
       </ion-grid>
     </ion-card-content>
   </ion-card>
+  <ion-label>
+    Coloque uma descrição e uma data para integrar essa contagem.
+  </ion-label>
 </ion-content>
 
 <ion-footer>
@@ -44,6 +44,6 @@
   </ion-button>
   <ion-button color="success" expand="full" (click)="salvar()">
     <ion-icon slot="start" name="save"></ion-icon>
-    Salvar  
+    Salvar
   </ion-button>
 </ion-footer>

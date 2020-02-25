@@ -1,8 +1,8 @@
-<ion-content class="ion-text-center">
-  <ion-title class="ion-padding-top" style="padding: 20%; font-size: 15pt;">
-    Contador Orquestral
-  </ion-title>
-  <ion-card stryle="transform: translate(-50%, -50%);">
+<ion-content padding class="ion-text-center bg-class">
+  <h1>
+      Contador Orquestral
+  </h1>
+  <ion-card class="bg-card-class">
     <ion-card-content>
       <ion-grid>
         <ion-row>
@@ -34,11 +34,11 @@
       </ion-grid>
     </ion-card-content>
   </ion-card>
-  <ion-button (click)="historico()"> 
+  <ion-button color="medium" (click)="historico()" style="margin-top: 50px;">
     <ion-icon slot="start" name="list"></ion-icon>
-    Histórico 
+    Histórico
   </ion-button>
-  <ion-button (click)="escanearQrCode()"> 
+  <ion-button color="medium" (click)="escanearQrCode()" style="margin-top: 50px;">
     <ion-icon slot="start" name="qr-scanner"></ion-icon>
     Escanear QR Code
   </ion-button>
