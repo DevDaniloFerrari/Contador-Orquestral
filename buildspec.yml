@@ -1,10 +1,7 @@
 version: 0.2
 env:
     variables:
-        CACHE_CONTROL: "86400"
         S3_BUCKET: "contador-orquestral-deploy"
-        BUILD_FOLDER: {-INSERT THE NAME OF THE BUILD FOLDER HERE-}
-        BUILD_ENV: "prod"
 phases:
     install:
         commands:
