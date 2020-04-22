@@ -17,4 +17,3 @@ artifacts:
     files:
         - '**/*'
     base-directory: 'www'
-    discard-paths: yes
