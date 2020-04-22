@@ -1,13 +1,26 @@
-version: 0.2
-
+  version: 0.2
+env:
+  variables:
+    S3_BUCKET: "contador-orquestral-deploy"
 phases:
+  install:
+    runtime-versions:
+      nodejs: 10
   pre_build:
     commands:
-      - npm i
+      - echo Installing source NPM dependencies...
+      - npm install
+      - npm install -g @angular/cli
   build:
     commands:
-      - npm run build:prod
+      - echo Build started on `date`
+      - ng build --prod --aot
+  post_build:
+     commands:
+      - aws s3 cp dist s3://${S3_BUCKET} --recursive
+      - echo Build completed on `date`
 artifacts:
   files:
-    - '**/*'
-  base-directory: www
+      - '**/*'
+  base-directory: 'www*'
+  discard-paths: yes
