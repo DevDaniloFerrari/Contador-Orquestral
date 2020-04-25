@@ -434,19 +434,30 @@ export class RelatorioDetalhePage implements OnInit {
     this.downloadPdf();
   }
 
-  private downloadPdf() {
+  private async downloadPdf() {
     if (this.platform.is('android') || this.platform.is('ios')) {
-      this.pdfObj.getBuffer((buffer: BlobPart) => {
-        const blob = new Blob([buffer], { type: 'application/pdf' });
+      this.pdfObj.getBuffer((buffer) => {
+        var utf8 = new Uint8Array(buffer);
+        var binaryArray = utf8.buffer;
+        var blob = new Blob([binaryArray], { type: 'application/pdf' });
 
-        // Save the PDF to the data Directory of our App
-        this.file.writeFile(this.file.dataDirectory, 'contagem.pdf', blob, { replace: true }).then(fileEntry => {
-          // Open the PDf with the correct OS tools
-          this.fileOpener.open(this.file.dataDirectory + 'contagem.pdf', 'application/pdf');
-        });
+        var directory: string;
+
+        if (this.platform.is('android'))
+          directory = this.file.externalDataDirectory;
+
+        if (this.platform.is('ios'))
+          directory = this.file.documentsDirectory;
+
+        this.file.writeFile(directory, 'contador.pdf', blob, { replace: true }).then((result) => {
+          this.fileOpener.open(directory + 'contador.pdf', 'application/pdf').then(
+            (result) => {
+            }
+          );
+        })
+
       });
     } else {
-      // On a browser simply use download!
       this.pdfObj.download();
     }
   }
@@ -458,5 +469,4 @@ export class RelatorioDetalhePage implements OnInit {
   public voltarParaTelaInicial() {
     this.navCtrl.navigateForward('tela-inicial');
   }
-
 }
