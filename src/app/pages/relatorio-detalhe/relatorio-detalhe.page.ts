@@ -435,31 +435,7 @@ export class RelatorioDetalhePage implements OnInit {
   }
 
   private async downloadPdf() {
-    if (this.platform.is('android') || this.platform.is('ios')) {
-      this.pdfObj.getBuffer((buffer) => {
-        var utf8 = new Uint8Array(buffer);
-        var binaryArray = utf8.buffer;
-        var blob = new Blob([binaryArray], { type: 'application/pdf' });
-
-        var directory: string;
-
-        if (this.platform.is('android'))
-          directory = this.file.externalDataDirectory;
-
-        if (this.platform.is('ios'))
-          directory = this.file.documentsDirectory;
-
-        this.file.writeFile(directory, 'contador.pdf', blob, { replace: true }).then((result) => {
-          this.fileOpener.open(directory + 'contador.pdf', 'application/pdf').then(
-            (result) => {
-            }
-          );
-        })
-
-      });
-    } else {
-      this.pdfObj.download();
-    }
+    this.pdfObj.download();
   }
 
   private obterQuantidade(nomeDoInstrumento: string) {
