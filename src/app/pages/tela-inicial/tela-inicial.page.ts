@@ -1,8 +1,8 @@
+import { ScannerModalPage } from './../scanner-modal/scanner-modal.page';
 import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController, ToastController } from '@ionic/angular';
+import { NavController, ToastController, ModalController } from '@ionic/angular';
 import { Contagem } from 'src/app/shared/contagem';
 import { Storage } from '@ionic/storage';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { isUndefined } from 'util';
 
 @Component({
@@ -15,14 +15,12 @@ export class TelaInicialPage implements OnInit {
   public data: string;
   public contagem: Contagem;
   public chave: string;
-  public contagemEscaneada: Contagem;
 
   constructor(
     public navCtrl: NavController,
     private storage: Storage,
-    private barcodeScanner: BarcodeScanner,
-    private alertController: AlertController,
-    public toastController: ToastController
+    public toastController: ToastController,
+    private modalController: ModalController
   ) { }
 
   ngOnInit() {
@@ -104,55 +102,11 @@ export class TelaInicialPage implements OnInit {
     this.data = this.contagem.data;
   }
 
-  public escanearQrCode() {
-    this.barcodeScanner.scan().then(barcodeData => {
-      this.contagemEscaneada = JSON.parse(barcodeData.text);
-      this.contagemEscaneada.contagemIntegrada = true;
-      this.salvarNoHistorico();
+  public async escanearQrCode() {
+    const modal = await this.modalController.create({
+      component: ScannerModalPage
     });
-  }
-
-  public salvarNoHistorico() {
-    this.storage.keys().then(contagens => {
-      this.chave = contagens[contagens.length - 1];
-      const proximaChave = ((+this.chave) + 1).toString();
-      this.storage.set(proximaChave, this.contagemEscaneada).then(
-        (response) => {
-          this.mostrarMensagemDeConfirmacao();
-        },
-        (error) => {
-          this.mostrarMensagemDeErro();
-        }
-      );
-    });
-  }
-
-  private async mostrarMensagemDeConfirmacao() {
-    const alert = await this.alertController.create({
-      header: 'Confirmação!',
-      message: 'Escaneado com sucesso!',
-      buttons: [
-        {
-          text: 'Continuar',
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-
-  private async mostrarMensagemDeErro() {
-    const alert = await this.alertController.create({
-      header: 'Alerta!',
-      message: 'Erro ao escanear QR Code!',
-      buttons: [
-        {
-          text: 'Voltar',
-        }
-      ]
-    });
-
-    await alert.present();
+    return await modal.present();
   }
 
   private async mostrarAvisoDeCamposVazios() {

@@ -6,8 +6,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Contagem } from 'src/app/shared/contagem';
 import { isUndefined } from 'util';
 import { ModalController } from '@ionic/angular';
-import { File } from '@ionic-native/file/ngx';
-import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -47,10 +45,7 @@ export class RelatorioDetalhePage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private route: ActivatedRoute,
-    private modalController: ModalController,
-    private platform: Platform,
-    private file: File,
-    private fileOpener: FileOpener
+    private modalController: ModalController
   ) { }
 
   ngOnInit() {

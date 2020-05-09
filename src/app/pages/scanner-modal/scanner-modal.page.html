@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">QR Code</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <video #video [hidden]="!scanActive" width="100%"></video>
+ 
+  <canvas #canvas hidden></canvas>
+</ion-content>
+
+<ion-footer>
+  <ion-button expand="full" (click)="stopScan()" color="danger" *ngIf="scanActive">
+    <ion-icon slot="start" name="close"></ion-icon>
+    Parar
+  </ion-button>
+</ion-footer>

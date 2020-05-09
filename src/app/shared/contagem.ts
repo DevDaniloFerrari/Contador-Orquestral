@@ -1,13 +1,16 @@
 import { Instrumento } from './instrumento';
 
 export class Contagem{
+    chaveDeValidacao: string;
     descricao: string;
     data: string;
     instrumentos: Array<Instrumento>;
     finalizada: boolean;
     contagemIntegrada: boolean;
+    contagemEscaneada: boolean;
 
     constructor(descricao: string, data: string, contagemIntegrada: boolean) {
+        this.chaveDeValidacao = "FC7FE49234C147DC22A66DDB6DE46";
         this.descricao = descricao;
         this.data = data;
         this.instrumentos = [

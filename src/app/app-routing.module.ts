@@ -29,6 +29,10 @@ const routes: Routes = [
   {
     path: 'integracao-contagem-modal',
     loadChildren: () => import('./pages/integracao-contagem-modal/integracao-contagem-modal.module').then( m => m.IntegracaoContagemModalPageModule)
+  },
+  {
+    path: 'scanner-modal',
+    loadChildren: () => import('./pages/scanner-modal/scanner-modal.module').then( m => m.ScannerModalPageModule)
   }
 
 
